@@ -1,0 +1,48 @@
+{
+  "1": {
+    "dialogueLines": [
+      "lol, I'm silly",
+      "But you're sillier"
+    ],
+    "nextNode": [
+      "2",
+      "3"
+    ],
+    "visited": false,
+    "dialogueChoices": [
+      "Yes",
+      "No"
+    ]
+  },
+  "2": {
+    "dialogueLines": [
+      "good! I'm glad you know you're silly!"
+    ],
+    "nextNode": [
+      "4"
+    ],
+    "visited": false,
+    "dialogueChoices": []
+  },
+  "3": {
+    "dialogueLines": [
+      "huh",
+      "so",
+      "You really don't think you're that silly?",
+      "oh well"
+    ],
+    "nextNode": [
+      "4"
+    ],
+    "visited": false,
+    "dialogueChoices": []
+  },
+  "4": {
+    "dialogueLines": [
+      "good night! :o)"
+    ],
+    "nextNode": [],
+    "visited": false,
+    "dialogueChoices": []
+  }
+}
