@@ -6,8 +6,9 @@ import java.io.IOException;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) throws ParseException, IOException {
-        DialogueHandler dialogueHandler = new DialogueHandler();
-        dialogueHandler.Start(); //TODO: Please fix the fact it needs to throw exceptions haha;;;;
-
+//        DialogueHandler dialogueHandler = new DialogueHandler();
+//        dialogueHandler.Start(); //TODO: Please fix the fact it needs to throw exceptions haha;;;;
+         Dungeon dungeon = new Dungeon();
+         dungeon.GenerateDungeon();
     }
 }

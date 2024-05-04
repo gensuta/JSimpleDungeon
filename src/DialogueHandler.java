@@ -46,7 +46,7 @@ public class DialogueHandler {
     //TODO: Change how this works too. this looks silly x-x
     public void CreateDialogueNodes() throws ParseException, IOException {
         JSONParser jsonParser = new JSONParser();
-        dialogueNodeMap = jsonParser.ParseJsonFile();
+        dialogueNodeMap = jsonParser.ParseToDialogueMap();
         currentNode = dialogueNodeMap.get(1);
     }
 

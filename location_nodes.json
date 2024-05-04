@@ -1,0 +1,62 @@
+{
+  "1": {
+    "north": null,
+    "east": null,
+    "south": 2,
+    "west": null
+  },
+  "2": {
+    "north": null,
+    "east": null,
+    "south": 4,
+    "west": 3
+  },
+  "3": {
+    "north": null,
+    "east": 2,
+    "south": 5,
+    "west": null
+  },
+  "4": {
+    "north": 2,
+    "east": null,
+    "south": 6,
+    "west": 5
+  },
+  "5": {
+    "north": 3,
+    "east": 4,
+    "south": 8,
+    "west": 7
+  },
+  "6": {
+    "north": 4,
+    "east": 10,
+    "south": null,
+    "west": 8
+  },
+  "7": {
+    "north": null,
+    "east": 5,
+    "south": 9,
+    "west": null
+  },
+  "8": {
+    "north": 5,
+    "east": 6,
+    "south": null,
+    "west": 9
+  },
+  "9": {
+    "north": 7,
+    "east": 8,
+    "south": null,
+    "west": null
+  },
+  "10": {
+    "north": null,
+    "east": null,
+    "south": null,
+    "west": 6
+  }
+}
