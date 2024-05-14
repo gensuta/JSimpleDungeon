@@ -20,21 +20,19 @@ public class InputHandler {
              switch (input.toLowerCase())
              {
                  case "north":
-                     newNode = locationNode.northNode;
+                     newNode = locationNode.getNorthNode();
                      break;
                  case "east":
-                     newNode = locationNode.eastNode;
+                     newNode = locationNode.getEastNode();
                      break;
                  case "south":
-                     newNode = locationNode.southNode;
+                     newNode = locationNode.getSouthNode();
                      break;
                  case "west":
-                     newNode = locationNode.westNode;
-                     break;
-                     default:
-                     System.out.println("Huh? Can you try that again?");
+                     newNode = locationNode.getWestNode();
                      break;
              }
+            if(newNode == null){ System.out.println("Huh? Can you try that again?");}
         }
 
 
@@ -42,14 +40,18 @@ public class InputHandler {
 
     }
 
-    public int CheckAgainstChoices(Map<String,Integer> choices)
+    public int CheckAgainstChoices(String[] choices)
     {
-        //TODO: See if you can check for the input being lowercase or all caps in a clean way
-        String input = GetUserInput();
-        if(choices.containsKey(input))
+        String input = GetUserInput().toLowerCase();
+
+        for(int i = 0 ; i < choices.length; i++)
         {
-            return choices.get(input);
+            if(choices[i].toLowerCase().equals(input))
+            {
+                return i;
+            }
         }
+
 
         System.out.println("Huh? Can you try that again?");
         return -1;

@@ -1,7 +1,3 @@
-import org.json.simple.parser.ParseException;
-
-import java.io.IOException;
-
 public class Dungeon {
     LocationNode currentLocationNode;
     InputHandler inputHandler = new InputHandler();
@@ -10,16 +6,9 @@ public class Dungeon {
 
     }
 
-    public void GenerateDungeon() throws IOException, ParseException {
+    public void GenerateDungeon() {
         JSONParser jsonParser = new JSONParser();
         currentLocationNode = jsonParser.ParseToLocationNodes();
-
-        boolean isRunning = true;
-        while(isRunning)
-        {
-            DisplayLocationOptions();
-            MovePlayer();
-        }
     }
 
     public void DisplayLocationOptions()
@@ -45,4 +34,22 @@ public class Dungeon {
         currentLocationNode = inputHandler.CheckAgainstDirections(currentLocationNode);
     }
 
+    public boolean CheckForGameEvents(){
+
+        GameEvent e = currentLocationNode.getGameEvent();
+        if(e == null){
+            return false;
+        }
+        if(e.getEvent() != Event.NONE)
+        {
+            if(e.isComplete()){
+                return e.isRepeatable();
+            }
+            else {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

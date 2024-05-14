@@ -1,78 +1,76 @@
-import org.json.simple.parser.ParseException;
-import java.io.IOException;
 import java.util.*;
 
 public class DialogueHandler {
     DialogueNode currentNode;
     Map<Integer,DialogueNode> dialogueNodeMap = new HashMap<Integer,DialogueNode>();
     InputHandler inputHandler = new InputHandler();
+    boolean runningDialogue;
 
     public void StartCurrentNode()
     {
-        boolean isRunning = true;
-        while(isRunning)
+        runningDialogue = true;
+        while(runningDialogue)
         {
             System.out.println("-----------------");
             currentNode.DisplayLines();
-            if(currentNode.getCurrentLine() >= currentNode.nodeLines.length)
+            if(currentNode.getCurrentLine() >= currentNode.getDialogueLines().length)
             {
                HandleResponse();
             }
 
-            if(currentNode.nextNodes.length == 0)
+            if(atEndOfDialogue())
             {
-                isRunning=false;
+                runningDialogue=false;
             }
         }
 
+    }
+
+    public void SetCurrentNode(int node_id){
+        currentNode = dialogueNodeMap.get(node_id);
     }
 
     private void HandleResponse()
     {
-        if(!currentNode.dialogueChoices.isEmpty())
+        if(currentNode.getDialogueChoices().length > 0)
         {
             int choice = -1;
             while (choice == -1)
             {
-               choice = inputHandler.CheckAgainstChoices(currentNode.dialogueChoices);
+               choice = inputHandler.CheckAgainstChoices(currentNode.getDialogueChoices());
             }
             MakeChoice(choice);
         }
         else {
-            GoToNext();
+            GoToNextNode();
         }
     }
 
-    //TODO: Change how this works too. this looks silly x-x
-    public void CreateDialogueNodes() throws ParseException, IOException {
+    public void CreateDialogueNodes(){
         JSONParser jsonParser = new JSONParser();
         dialogueNodeMap = jsonParser.ParseToDialogueMap();
         currentNode = dialogueNodeMap.get(1);
     }
 
-    //TODO: Maybe rename this?
-    public void GoToNext(){
-        if(currentNode.nextNodes.length == 0)
+    public void GoToNextNode(){
+        if(atEndOfDialogue())
         {
-            System.out.println("-----The End------");
+            System.out.println("-----------------");
+            runningDialogue=false;
         }
         else{
-            currentNode = dialogueNodeMap.get(currentNode.nextNodes[0]);
+            currentNode = dialogueNodeMap.get(currentNode.getNextNodes()[0]);
             StartCurrentNode();
         }
     }
 
     public void MakeChoice(int choice)
     {
-
-        // TODO: FIX THIS THIS LOOKS SILLY
-        currentNode = dialogueNodeMap.get(currentNode.nextNodes[choice]);
+        currentNode = dialogueNodeMap.get(currentNode.getNextNodes()[choice]);
         StartCurrentNode();
     }
 
-    public void Start() throws ParseException, IOException
-    {
-        CreateDialogueNodes(); //TODO: Please fix the fact it needs to throw exceptions haha;;;;
-        StartCurrentNode();
+    public boolean atEndOfDialogue(){
+        return currentNode.getNextNodes().length == 0;
     }
 }

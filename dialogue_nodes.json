@@ -4,7 +4,7 @@
       "lol, I'm silly",
       "But you're sillier"
     ],
-    "nextNode": [
+    "nextNodes": [
       "2",
       "3"
     ],
@@ -18,7 +18,7 @@
     "dialogueLines": [
       "good! I'm glad you know you're silly!"
     ],
-    "nextNode": [
+    "nextNodes": [
       "4"
     ],
     "visited": false,
@@ -31,7 +31,7 @@
       "You really don't think you're that silly?",
       "oh well"
     ],
-    "nextNode": [
+    "nextNodes": [
       "4"
     ],
     "visited": false,
@@ -41,7 +41,7 @@
     "dialogueLines": [
       "good night! :o)"
     ],
-    "nextNode": [],
+    "nextNodes": [],
     "visited": false,
     "dialogueChoices": []
   }

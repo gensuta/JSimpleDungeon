@@ -1,47 +1,101 @@
-import java.util.HashMap;
 import java.util.Map;
 
 public class DialogueNode {
 
-    int nodeNum;
-    boolean visited;
-    String[] nodeLines;
-    Map<String,Integer> dialogueChoices = new HashMap<>();
-    int[] nextNodes;
+    private int nodeNum;
+    private boolean visited;
+    private String[] dialogueLines;
+    private String[] dialogueChoices;
+    private int[] nextNodes;
 
-    int _currentLine;
+    private int _currentLine;
 
     public int getCurrentLine(){
-        return _currentLine;
+        return get_currentLine();
     }
 
-    public DialogueNode(int nodeNum, String[] nodeLines,Map<String,Integer> dialogueChoices, int[] nextNodes) {
-        this.nodeNum = nodeNum;
-        this.visited = false;
-        this.nodeLines = nodeLines;
-        this.dialogueChoices = dialogueChoices;
-        this.nextNodes = nextNodes;
-        this._currentLine = 0;
+    public DialogueNode(){
+
     }
+
+    public DialogueNode(int nodeNum, String[] dialogueLines, String[] dialogueChoices, int[] nextNodes) {
+        this.setNodeNum(nodeNum);
+        this.setVisited(false);
+        this.setDialogueLines(dialogueLines);
+        this.setDialogueChoices(dialogueChoices);
+        this.setNextNodes(nextNodes);
+        this.set_currentLine(0);
+    }
+
+
 
     public void DisplayChoices()
     {
-        for (Map.Entry<String,Integer> choice: dialogueChoices.entrySet()) {
-            System.out.println(choice.getKey());
-        }
+        System.out.println("Make a choice:");
+       for(String s : getDialogueChoices())
+       {
+           System.out.println(s);
+       }
     }
 
     public void DisplayLines(){
-        while(_currentLine < nodeLines.length)
+        while(get_currentLine() < getDialogueLines().length)
         {
-            System.out.println(nodeLines[_currentLine]);
-            _currentLine++;
+            System.out.println(getDialogueLines()[get_currentLine()]);
+            set_currentLine(get_currentLine() + 1);
         }
-        if(!dialogueChoices.isEmpty())
+        if(getDialogueChoices().length > 0)
         {
             DisplayChoices();
         }
     }
 
 
+    public int getNodeNum() {
+        return nodeNum;
+    }
+
+    public void setNodeNum(int nodeNum) {
+        this.nodeNum = nodeNum;
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
+    public String[] getDialogueLines() {
+        return dialogueLines;
+    }
+
+    public void setDialogueLines(String[] dialogueLines) {
+        this.dialogueLines = dialogueLines;
+    }
+
+    public String[] getDialogueChoices() {
+        return dialogueChoices;
+    }
+
+    public void setDialogueChoices(String[] dialogueChoices) {
+        this.dialogueChoices = dialogueChoices;
+    }
+
+    public int[] getNextNodes() {
+        return nextNodes;
+    }
+
+    public void setNextNodes(int[] nextNodes) {
+        this.nextNodes = nextNodes;
+    }
+
+    public int get_currentLine() {
+        return _currentLine;
+    }
+
+    public void set_currentLine(int _currentLine) {
+        this._currentLine = _currentLine;
+    }
 }

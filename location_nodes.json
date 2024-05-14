@@ -1,62 +1,123 @@
 {
+  "0": {
+    "northNode": null,
+    "eastNode": null,
+    "southNode": null,
+    "westNode": 1,
+    "gameEvent": {
+      "event": "NONE",
+      "id": -1,
+      "repeatable": false
+    }
+  },
   "1": {
-    "north": null,
-    "east": null,
-    "south": 2,
-    "west": null
+    "northNode": null,
+    "eastNode": null,
+    "southNode": 2,
+    "westNode": 0,
+    "gameEvent": {
+      "event": "NONE",
+      "id": -1,
+      "repeatable": false
+    }
   },
   "2": {
-    "north": null,
-    "east": null,
-    "south": 4,
-    "west": 3
+    "northNode": null,
+    "eastNode": null,
+    "southNode": 4,
+    "westNode": 3,
+    "gameEvent": {
+      "event": "NONE",
+      "id": -1,
+      "repeatable": false
+    }
   },
   "3": {
-    "north": null,
-    "east": 2,
-    "south": 5,
-    "west": null
+    "northNode": null,
+    "eastNode": 2,
+    "southNode": 5,
+    "westNode": null,
+    "gameEvent": {
+      "event": "NONE",
+      "id": -1,
+      "repeatable": false
+    }
   },
   "4": {
-    "north": 2,
-    "east": null,
-    "south": 6,
-    "west": 5
+    "northNode": 2,
+    "eastNode": null,
+    "southNode": 6,
+    "westNode": 5,
+    "gameEvent": {
+      "event": "NONE",
+      "id": -1,
+      "repeatable": false
+    }
   },
   "5": {
-    "north": 3,
-    "east": 4,
-    "south": 8,
-    "west": 7
+    "northNode": 3,
+    "eastNode": 4,
+    "southNode": 8,
+    "westNode": 7,
+    "gameEvent": {
+      "event": "DIALOGUE",
+      "id": 1,
+      "repeatable": false
+    }
   },
   "6": {
-    "north": 4,
-    "east": 10,
-    "south": null,
-    "west": 8
+    "northNode": 4,
+    "eastNode": 10,
+    "southNode": null,
+    "westNode": 8,
+    "gameEvent": {
+      "event": "NONE",
+      "id": -1,
+      "repeatable": false
+    }
   },
   "7": {
-    "north": null,
-    "east": 5,
-    "south": 9,
-    "west": null
+    "northNode": null,
+    "eastNode": 5,
+    "southNode": 9,
+    "westNode": null,
+    "gameEvent": {
+      "event": "NONE",
+      "id": -1,
+      "repeatable": false
+    }
   },
   "8": {
-    "north": 5,
-    "east": 6,
-    "south": null,
-    "west": 9
+    "northNode": 5,
+    "eastNode": 6,
+    "southNode": null,
+    "westNode": 9,
+    "gameEvent": {
+      "event": "NONE",
+      "id": -1,
+      "repeatable": false
+    }
   },
   "9": {
-    "north": 7,
-    "east": 8,
-    "south": null,
-    "west": null
+    "northNode": 7,
+    "eastNode": 8,
+    "southNode": null,
+    "westNode": null,
+    "gameEvent": {
+      "event": "NONE",
+      "id": -1,
+      "repeatable": false
+    }
   },
   "10": {
-    "north": null,
-    "east": null,
-    "south": null,
-    "west": 6
+    "northNode": null,
+    "eastNode": null,
+    "southNode": null,
+    "westNode": 6,
+    "gameEvent": {
+      "event": "NONE",
+      "id": -1,
+      "repeatable": false
+    }
   }
 }

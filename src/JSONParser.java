@@ -1,133 +1,84 @@
 import java.io.*;
+import java.lang.reflect.Type;
+import java.nio.file.Paths;
 import java.util.*;
-import org.json.simple.*;
-import org.json.simple.parser.ParseException;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.json.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JSONParser {
 
-    public String ScanFile(String fileName) throws IOException{
+    ObjectMapper objectMapper = new ObjectMapper();
 
-        String jsonString = "";
-        BufferedReader reader = new BufferedReader(new FileReader(fileName));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            jsonString += line + "\n";
-           // System.out.println(line);
+
+    public LocationNode ParseToLocationNodes() {
+        try {
+            JsonNode jsonNode = objectMapper.readTree(Paths.get("location_nodes.json").toFile());
+            LocationNode[] locationNodes = new LocationNode[jsonNode.size()];
+
+            //first add all the objects to a map
+            //then organize them properly so that they refer to each other?
+            for (int i = 0; i < jsonNode.size(); i++) {
+                locationNodes[i] = new LocationNode();
+                locationNodes[i].setIdNum(i);
+            }
+
+            for (int i = 0; i < locationNodes.length; i++) {
+
+                JsonNode currentNode = jsonNode.get(Integer.toString(i));
+
+
+                locationNodes[i].setGameEvent(objectMapper.treeToValue(currentNode.get("gameEvent"),GameEvent.class));
+
+                if (JsonNodeToInt(currentNode.get("northNode")) != -1 ) {
+                    locationNodes[i].setNorthNode(locationNodes[JsonNodeToInt(currentNode.get("northNode"))]);
+                }
+                if (JsonNodeToInt(currentNode.get("eastNode")) != -1 ){
+                    locationNodes[i].setEastNode(locationNodes[JsonNodeToInt(currentNode.get("eastNode"))]);
+
+                }
+                if (JsonNodeToInt(currentNode.get("southNode")) != -1 ) {
+                    locationNodes[i].setSouthNode(locationNodes[JsonNodeToInt(currentNode.get("southNode"))]);
+
+                }
+                if (JsonNodeToInt(currentNode.get("westNode")) != -1 ) {
+                    locationNodes[i].setWestNode(locationNodes[JsonNodeToInt(currentNode.get("westNode"))]);
+                }
+            }
+
+            return locationNodes[0];
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        reader.close();
-
-
-        return jsonString;
+        return null;
     }
 
-    public LocationNode ParseToLocationNodes() throws IOException, ParseException {
 
-        String jsonString = ScanFile("location_nodes.json");
+    public int JsonNodeToInt(JsonNode node){
 
-
-        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
-        Object obj = parser.parse(jsonString);
-        JSONObject jsonObject = (JSONObject) obj; // array of nodes
-
-
-        LocationNode[] locationNodes = new LocationNode[((JSONObject) obj).size()+1];
-
-        //first add all the objects to a map
-        //then organize them properly so that they refer to each other?
-        //TODO: Ask how to do this better. Should I really be using a map? Am i being silly?
-
-        for(int i = 0; i < jsonObject.size(); i++)
+        try {
+            return Integer.parseInt(node.toString());
+        }
+        catch(Exception e)
         {
-            locationNodes[i+1] = new LocationNode();
-            locationNodes[i+1].idNum = i+1;
+            return -1;
         }
-
-        for(int i = 1; i < locationNodes.length; i++)
-        {
-            JSONObject currentObj = (JSONObject) jsonObject.get(Integer.toString(i));
-
-            if(currentObj.get("north") != null)
-            {
-                locationNodes[i].northNode = locationNodes[(Integer.parseInt(currentObj.get("north").toString()))];
-
-            }
-            if(currentObj.get("east") != null)
-            {
-                locationNodes[i].eastNode = locationNodes[(Integer.parseInt(currentObj.get("east").toString()))];
-
-            }
-            if(currentObj.get("south") != null)
-            {
-                locationNodes[i].southNode = locationNodes[(Integer.parseInt(currentObj.get("south").toString()))];
-
-            }
-            if(currentObj.get("west") != null)
-            {
-                locationNodes[i].westNode = locationNodes[((Integer.parseInt(currentObj.get("west").toString())))];
-            }
-        }
-
-
-        return locationNodes[1];
     }
 
-    public Map<Integer,DialogueNode> ParseToDialogueMap() throws ParseException, IOException {
-        String jsonString = ScanFile("test_doc.json");
-        Map<Integer, DialogueNode> dialogueNodeMap = new HashMap<Integer, DialogueNode>();
+    public Map<Integer, DialogueNode> ParseToDialogueMap() {
 
-        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
-        Object obj = parser.parse(jsonString);
-        JSONObject jsonObject = (JSONObject) obj; // array of nodes
-
-        for(int i = 1; i < jsonObject.size()+1; i++)
-        {
-            JSONObject currentObj = (JSONObject) jsonObject.get(Integer.toString(i));
-
-            if(currentObj == null) continue;
-
-            String[] nodeLines = toStringArray ( (JSONArray) currentObj.get("dialogueLines"));
-            int[] nextNodes = toIntArray ((JSONArray) currentObj.get("nextNode")); //TODO:rename nextNode to nextNodes in the JSONFile
-            Map<String,Integer> dialogueChoices = toChoiceArray ((JSONArray) currentObj.get("dialogueChoices"));
-
-            DialogueNode currentNode = new DialogueNode(i, nodeLines, dialogueChoices, nextNodes);
-            dialogueNodeMap.put(i, currentNode);
+        try {
+            return objectMapper.readValue(Paths.get("dialogue_nodes.json").toFile(), new TypeReference<Map<Integer, DialogueNode>>() {
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-
-        return dialogueNodeMap;
-    }
-
-    public String[] toStringArray(JSONArray jsonArray) {
-        if(jsonArray ==null)
-            return new String[0];
-
-        String[] arr=new String[jsonArray.size()];
-        for(int i=0; i<arr.length; i++) {
-            arr[i]= jsonArray.get(i).toString();
-        }
-        return arr;
-    }
-
-    public int[] toIntArray(JSONArray jsonArray) {
-        if(jsonArray ==null)
-            return new int[0];
-
-        int[] arr=new int[jsonArray.size()];
-        for(int i=0; i<arr.length; i++) {
-        // TODO: Ask if there's a cleaner way to do this
-            arr[i]= Integer.parseInt(jsonArray.get(i).toString());
-        }
-        return arr;
-    }
-
-    public Map<String,Integer> toChoiceArray(JSONArray jsonArray) {
-        if(jsonArray ==null)
-            return new HashMap<String,Integer>();
-
-        Map<String,Integer> map = new HashMap<String,Integer>();
-        for(int i = 0; i< jsonArray.size(); i++) {
-            map.put(jsonArray.get(i).toString(),i);
-        }
-        return map;
+        return null;
     }
 }
+
