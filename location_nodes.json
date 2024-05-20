@@ -60,7 +60,7 @@
     "southNode": 8,
     "westNode": 7,
     "gameEvent": {
-      "event": "DIALOGUE",
+      "event": "DIALOGUE_EVENT",
       "id": 1,
       "repeatable": false
     }
@@ -71,8 +71,8 @@
     "southNode": null,
     "westNode": 8,
     "gameEvent": {
-      "event": "NONE",
-      "id": -1,
+      "event": "BATTLE_EVENT",
+      "id": 1,
       "repeatable": false
     }
   },

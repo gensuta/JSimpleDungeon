@@ -50,7 +50,7 @@ public class JSONParser {
                 }
             }
 
-            return locationNodes[0];
+            return locationNodes[4];
 
         } catch (Exception e) {
             e.printStackTrace();

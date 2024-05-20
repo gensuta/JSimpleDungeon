@@ -8,6 +8,7 @@ public class InputHandler {
         return myObj.nextLine();
     }
 
+    // Input for Movement
     public LocationNode CheckAgainstDirections(LocationNode locationNode)
     {
 
@@ -40,6 +41,7 @@ public class InputHandler {
 
     }
 
+    //Input for dialogue
     public int CheckAgainstChoices(String[] choices)
     {
         String input = GetUserInput().toLowerCase();
@@ -57,6 +59,7 @@ public class InputHandler {
         return -1;
     }
 
+    //Input for Battles
 
 
 }

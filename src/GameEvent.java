@@ -1,4 +1,4 @@
-enum Event {DIALOGUE, BATTLE,NONE}
+enum Event {DIALOGUE_EVENT, BATTLE_EVENT, DESTROYABLE_OBSTACLE,LOCKED_DOOR,NONE}
 
 class GameEvent{
     private Event event;
