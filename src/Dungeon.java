@@ -1,4 +1,7 @@
+import java.util.List;
+
 public class Dungeon {
+    LocationNode[] allLocationNodes;
     LocationNode currentLocationNode;
     InputHandler inputHandler = new InputHandler();
 
@@ -8,7 +11,8 @@ public class Dungeon {
 
     public void GenerateDungeon() {
         JSONParser jsonParser = new JSONParser();
-        currentLocationNode = jsonParser.ParseToLocationNodes();
+        allLocationNodes = jsonParser.ParseToLocationNodes();
+        currentLocationNode = allLocationNodes[4];
     }
 
     public void DisplayLocationOptions()
@@ -34,7 +38,13 @@ public class Dungeon {
         currentLocationNode = inputHandler.CheckAgainstDirections(currentLocationNode);
     }
 
-    public boolean CheckForGameEvents(){
+    public LocationNode getLocation(int id)
+    {
+        return allLocationNodes[id];
+    }
+
+    //TODO: THE DUNGEON SHOULDN'T CHECK FOR GAME EVENTS!!!!!!!!
+    public boolean CheckForGameEvents(List<Integer> visited_events){
 
         GameEvent e = currentLocationNode.getGameEvent();
         if(e == null){
@@ -42,7 +52,7 @@ public class Dungeon {
         }
         if(e.getEvent() != Event.NONE)
         {
-            if(e.isComplete()){
+            if(visited_events.contains(e.getId()) || e.isComplete()){
                 return e.isRepeatable();
             }
             else {

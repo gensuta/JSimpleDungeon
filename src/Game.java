@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 public class Game {
 
@@ -9,6 +10,7 @@ public class Game {
     private DialogueHandler dialogueHandler = new DialogueHandler();
 
 
+    private SaveData currentSaveData;
     private GameEvent currentGameEvent;
     private State currentState;
 
@@ -25,16 +27,33 @@ public class Game {
         dialogueHandler.CreateDialogueNodes();
         currentState = State.MOVE_STATE;  // Movement is the default state
 
+        currentSaveData = LoadSaveData();
+        dungeon.currentLocationNode = dungeon.getLocation(currentSaveData.getLocationNode());
+        player = currentSaveData.getPlayer();
+
+
         //TODO: Create new JSON with all the enemy info and have the JSONParser return a map with all the correct info
         //For now I'm just gonna add stuff to the map for testing purposes. The battle working is the main priority
 
-        //TODO: Another one! I need to figure out how to have an id for a multi enemy battle!
+        //TODO: Another one! I need to figure out how to have an id for a multi enemy battle! Maybe create a "battle" object
         enemyMap.put(slime.ID(),slime);
         enemyMap.put(bat.ID(),bat);
 
     }
 
+    public SaveData LoadSaveData()
+    {
+        File saveFile = new File("save.json");
+        SaveData saveData = new SaveData(player,new ArrayList<>(),dungeon.currentLocationNode.getIdNum());
+        if(saveFile.exists()) {
+            saveData = saveData.Load();
+        }
+        return saveData;
+    }
+
     public void BeginEvent(Event e, int ID){
+        //TODO: How do we ensure that the dialogue and enemy ids are different oh boy.
+        currentSaveData.addNewEventID(ID);
         switch(e)
         {
             case DIALOGUE_EVENT:
@@ -59,14 +78,20 @@ public class Game {
             //TODO: We need a way to handle repeatable events without being stuck on that node 5ever
             switch (currentState) {
                 case MOVE_STATE:
-                    if(dungeon.CheckForGameEvents())
+                    if(dungeon.CheckForGameEvents(currentSaveData.getvisitedEventIDs()))
                     {
                         currentGameEvent = dungeon.currentLocationNode.getGameEvent();
                         BeginEvent(currentGameEvent.getEvent(), currentGameEvent.getId());
+                        //save after we finish an event
+                        //TODO: Add save points? framework that allows autosaving OR save at certain points based on events
+                        currentSaveData.Save(dungeon.currentLocationNode.getIdNum());
                     }
                     else {
                         dungeon.DisplayLocationOptions();
                         dungeon.MovePlayer();
+                        //save after we successfully move the player
+                        //TODO: Add save points? framework that allows autosaving OR save at certain points based on events
+                        currentSaveData.Save(dungeon.currentLocationNode.getIdNum());
                     }
                     break;
                 case INPUT_STATE:

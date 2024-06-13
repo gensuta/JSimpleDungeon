@@ -3,10 +3,8 @@ import java.lang.reflect.Type;
 import java.nio.file.Paths;
 import java.util.*;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.json.*;
+
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -14,8 +12,26 @@ public class JSONParser {
 
     ObjectMapper objectMapper = new ObjectMapper();
 
+    public SaveData LoadGame()
+    {
+        try {
+            return objectMapper.readValue(Paths.get("save.json").toFile(), SaveData.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-    public LocationNode ParseToLocationNodes() {
+    public void SaveGame(SaveData s) {
+        try {
+            objectMapper.writeValue(new File("save.json"), s);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public LocationNode[] ParseToLocationNodes() {
         try {
             JsonNode jsonNode = objectMapper.readTree(Paths.get("location_nodes.json").toFile());
             LocationNode[] locationNodes = new LocationNode[jsonNode.size()];
@@ -50,7 +66,7 @@ public class JSONParser {
                 }
             }
 
-            return locationNodes[4];
+            return locationNodes;
 
         } catch (Exception e) {
             e.printStackTrace();

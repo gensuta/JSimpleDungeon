@@ -4,6 +4,10 @@ public class HealthHaver {
     private int maxHealth;
     private int currentHealth;
 
+    public HealthHaver(){
+
+    }
+
     public HealthHaver(int maxHealth){
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
@@ -32,6 +36,11 @@ public class HealthHaver {
 
         return  value;
 
+    }
+
+    public int getMaxHealth()
+    {
+        return this.maxHealth;
     }
 
     public  int Health()

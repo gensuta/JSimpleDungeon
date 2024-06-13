@@ -12,6 +12,14 @@ public class Battler extends  HealthHaver
 
     private boolean turnFinished;
 
+    public Battler(){
+
+    }
+
+    public Battler(int maxHealth) {
+        super(maxHealth);
+    }
+
 
     public boolean IsDefending(){
         return isDefending;
@@ -72,5 +80,18 @@ public class Battler extends  HealthHaver
         isDefending = false;
         turnFinished = false;
         System.out.printf("\n%s is making a decision...",name);
+    }
+    public Stats getSTATS(){
+        return this.STATS;
+    }
+
+    public int getHitRate()
+    {
+        return this.hitRate;
+    }
+
+    public String getName()
+    {
+        return this.name;
     }
 }

@@ -1,15 +1,15 @@
 import java.util.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Player extends Battler{
 
-    //Player can battle and has a position in the dungeon!
-    //Also has an inventory ^-^ the int in the map is the amount of the item
-
-    public Map<Item,Integer> inventory = new HashMap<>();
-
-    public LocationNode currentLocation;
-
     private InputHandler inputHandler = new InputHandler();
+
+    public Player()
+    {
+
+    }
 
     public Player(int maxHealth, Stats STATS, String name, int hitRate) {
         super(maxHealth, STATS, name, hitRate);
