@@ -1,0 +1,13 @@
+{
+  "1": {
+    "maxHealth": 100,
+    "currentHealth" : 100,
+    "STATS": {
+      "ATK": 25,
+      "DEF": 22,
+      "SPD": 18
+    },
+    "name": "Player",
+    "hitRate": 85
+  }
+}

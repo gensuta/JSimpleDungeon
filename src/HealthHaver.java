@@ -1,25 +1,22 @@
-import java.util.*;
-
 public class HealthHaver {
     private int maxHealth;
     private int currentHealth;
 
     public HealthHaver(){
-
     }
 
     public HealthHaver(int maxHealth){
-        this.maxHealth = maxHealth;
-        this.currentHealth = maxHealth;
+        this.setMaxHealth(maxHealth);
+        this.setCurrentHealth(maxHealth);
     }
 
    public void IncreaseHealth(int num){
-        currentHealth += num;
-        currentHealth = clamp(currentHealth,0,maxHealth);
+        setCurrentHealth(getCurrentHealth() + num);
+        setCurrentHealth(clamp(getCurrentHealth(),0, getMaxHealth()));
    }
     public void DecreaseHealth(int num){
-        currentHealth -= num;
-        currentHealth = clamp(currentHealth,0,maxHealth);
+        setCurrentHealth(getCurrentHealth() - num);
+        setCurrentHealth(clamp(getCurrentHealth(),0, getMaxHealth()));
     }
 
     private int clamp(int value, int minVal, int maxVal)
@@ -43,8 +40,15 @@ public class HealthHaver {
         return this.maxHealth;
     }
 
-    public  int Health()
-    {
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+    public int getCurrentHealth() {
         return currentHealth;
+    }
+
+    public void setCurrentHealth(int currentHealth) {
+        this.currentHealth = currentHealth;
     }
 }

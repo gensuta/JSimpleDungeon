@@ -12,8 +12,10 @@ public class Battler extends  HealthHaver
 
     private boolean turnFinished;
 
-    public Battler(){
+    private boolean fled;
 
+    public Battler(){
+        IncreaseHealth(getMaxHealth());
     }
 
     public Battler(int maxHealth) {
@@ -46,9 +48,21 @@ public class Battler extends  HealthHaver
 
     }
 
-    //TODO: Figure out how to properly implement fleeing for enemies
-    public void Flee(){
-        System.out.printf("\n%s attempted to flee!",name);
+    public void Flee()
+    {
+        System.out.printf("\n%s attempted to flee...",name);
+        double neededNumToFlee = Math.random()*100;
+        boolean didFlee = (Math.random()*100) >= neededNumToFlee;
+
+        if(didFlee)
+        {
+            System.out.print("and was successful!");
+            fled = true;
+        }
+        else {
+            System.out.print("and failed!");
+        }
+
         turnFinished = true;
     }
 
@@ -65,7 +79,7 @@ public class Battler extends  HealthHaver
         int dmg = (opponent.IsDefending()) ? STATS.ATK - (opponent.STATS.DEF/2) : STATS.ATK;
         opponent.DecreaseHealth(dmg);
 
-        System.out.printf("\n%s has attacked %s for %d damage.%n\n%s now has %d health left!",name, opponent.Name(),dmg,opponent.Name(),opponent.Health());
+        System.out.printf("\n%s has attacked %s for %d damage.%n\n%s now has %d health left!",name, opponent.Name(),dmg,opponent.Name(),opponent.getCurrentHealth());
         turnFinished = true;
     }
 
@@ -93,5 +107,10 @@ public class Battler extends  HealthHaver
     public String getName()
     {
         return this.name;
+    }
+
+    public boolean getFled()
+    {
+        return this.fled;
     }
 }

@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Player extends Battler{
 
-    private InputHandler inputHandler = new InputHandler();
+    private final InputHandler inputHandler = new InputHandler();
 
     public Player()
     {
-
+        IncreaseHealth(getMaxHealth());
     }
 
     public Player(int maxHealth, Stats STATS, String name, int hitRate) {
@@ -21,7 +21,7 @@ public class Player extends Battler{
             String decision = inputHandler.GetUserInput().toLowerCase();
             switch (decision) {
                 case "attack":
-                    Attack(opponents[1]); // TODO: Ensure the player chooses who to attack. This is hardcoded for testing purposes
+                    Attack(opponents[1]); // TODO: Ensure the player chooses who to attack. This will be hardcoded until multi-enemy battles are implemented
                     break;
                 case "defend":
                     Defend();

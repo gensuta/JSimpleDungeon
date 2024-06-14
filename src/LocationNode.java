@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class LocationNode {
-    private int idNum = 0;
+    private Integer id;
     private LocationNode northNode;
     private LocationNode eastNode;
     private LocationNode southNode;
@@ -46,12 +46,12 @@ public class LocationNode {
     }
 
     //getters and setters below
-    public int getIdNum() {
-        return idNum;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdNum(int idNum) {
-        this.idNum = idNum;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public LocationNode getNorthNode() {

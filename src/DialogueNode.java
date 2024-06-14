@@ -6,7 +6,7 @@ public class DialogueNode {
     private boolean visited;
     private String[] dialogueLines;
     private String[] dialogueChoices;
-    private int[] nextNodes;
+    private String[] nextNodes;
 
     private int _currentLine;
 
@@ -18,7 +18,7 @@ public class DialogueNode {
 
     }
 
-    public DialogueNode(int nodeNum, String[] dialogueLines, String[] dialogueChoices, int[] nextNodes) {
+    public DialogueNode(int nodeNum, String[] dialogueLines, String[] dialogueChoices, String[] nextNodes) {
         this.setNodeNum(nodeNum);
         this.setVisited(false);
         this.setDialogueLines(dialogueLines);
@@ -83,11 +83,11 @@ public class DialogueNode {
         this.dialogueChoices = dialogueChoices;
     }
 
-    public int[] getNextNodes() {
+    public String[] getNextNodes() {
         return nextNodes;
     }
 
-    public void setNextNodes(int[] nextNodes) {
+    public void setNextNodes(String[] nextNodes) {
         this.nextNodes = nextNodes;
     }
 

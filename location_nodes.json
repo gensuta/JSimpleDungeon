@@ -61,7 +61,7 @@
     "westNode": 7,
     "gameEvent": {
       "event": "DIALOGUE_EVENT",
-      "id": 1,
+      "id": "1d",
       "repeatable": false
     }
   },
@@ -72,7 +72,7 @@
     "westNode": 8,
     "gameEvent": {
       "event": "BATTLE_EVENT",
-      "id": 1,
+      "id": "1e",
       "repeatable": false
     }
   },

@@ -1,12 +1,12 @@
 {
-  "1": {
+  "1d": {
     "dialogueLines": [
       "lol, I'm silly",
       "But you're sillier"
     ],
     "nextNodes": [
-      "2",
-      "3"
+      "2d",
+      "3d"
     ],
     "visited": false,
     "dialogueChoices": [
@@ -14,17 +14,17 @@
       "No"
     ]
   },
-  "2": {
+  "2d": {
     "dialogueLines": [
       "good! I'm glad you know you're silly!"
     ],
     "nextNodes": [
-      "4"
+      "4d"
     ],
     "visited": false,
     "dialogueChoices": []
   },
-  "3": {
+  "3d": {
     "dialogueLines": [
       "huh",
       "so",
@@ -32,12 +32,12 @@
       "oh well"
     ],
     "nextNodes": [
-      "4"
+      "4d"
     ],
     "visited": false,
     "dialogueChoices": []
   },
-  "4": {
+  "4d": {
     "dialogueLines": [
       "good night! :o)"
     ],

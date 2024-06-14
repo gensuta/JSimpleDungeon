@@ -10,8 +10,15 @@ public class BattleHandler {
     private Battler currentBattler;
 
     public void StartBattle(Battler ...battlers){
-        List<Battler> list = List.of(battlers); // to ensure currentbattlers is imutable. TODO: plx fix this it's goofy
+        List<Battler> list = List.of(battlers);
         currentBattlers = new ArrayList<>(list);
+
+//        //TODO: Look into how the JSON plugin runs the constructor since it's not currently doing that >:(
+//        //We do NOT want to be giving the player health during every single battle, but this will be fixed before the summer's over
+//        for(Battler b : currentBattlers)
+//        {
+//            b.IncreaseHealth(b.getMaxHealth());
+//        }
 
         ConnectOpponents();
         System.out.println("Oh No! It looks like you got into a battle!");
@@ -32,11 +39,11 @@ public class BattleHandler {
         StartTurn();
         while(inBattle)
         {
-
             while(!currentBattler.TurnFinished())
             {
                 currentBattler.MakeDecision();
             }
+            CheckForEscapees();
             CheckForDeaths();
 
             if(currentBattlers.size() ==1) return; // HACKFIX: it keeps showing the next person's turn cut it out
@@ -92,6 +99,28 @@ public class BattleHandler {
         return null;
     }
 
+    public  void CheckForEscapees(){
+
+        List<Battler> escapedBattlers = new ArrayList<>();
+        for(Battler b : currentBattlers)
+        {
+            if(b.getFled())
+            {
+                escapedBattlers.add(b);
+            }
+        }
+
+        if(!escapedBattlers.isEmpty())
+        {
+            RemoveBattlers(escapedBattlers);
+        }
+
+
+        if(currentBattlers.size() == 1)
+        {
+            EndBattle();
+        }
+    }
 
 
     public  void CheckForDeaths(){
@@ -99,7 +128,7 @@ public class BattleHandler {
         List<Battler> deadBattlers = new ArrayList<>();
         for(Battler b : currentBattlers)
         {
-            if(b.Health() <= 0)
+            if(b.getCurrentHealth() <= 0)
             {
                 deadBattlers.add(b);
             }
@@ -107,13 +136,13 @@ public class BattleHandler {
 
         if(!deadBattlers.isEmpty())
         {
-            RemoveDeadBattlers(deadBattlers);
+            RemoveBattlers(deadBattlers);
         }
 
 
         if(currentBattlers.size() == 1)
         {
-           EndBattle(); // TODO: Expand upon this to check if there's only players or only enemies
+           EndBattle();
         }
     }
 
@@ -130,9 +159,9 @@ public class BattleHandler {
         inBattle = false;
     }
 
-    public void RemoveDeadBattlers(List<Battler> deadBattlers)
+    public void RemoveBattlers(List<Battler> battlers)
     {
-        for(Battler b : deadBattlers)
+        for(Battler b : battlers)
         {
             currentBattlers.remove(b);
         }

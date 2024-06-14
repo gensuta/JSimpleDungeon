@@ -1,5 +1,3 @@
-import java.util.List;
-
 public class Dungeon {
     LocationNode[] allLocationNodes;
     LocationNode currentLocationNode;
@@ -33,7 +31,7 @@ public class Dungeon {
         System.out.println(displayLine + ".");
     }
 
-    public void MovePlayer()
+    public void ChangeLocation()
     {
         currentLocationNode = inputHandler.CheckAgainstDirections(currentLocationNode);
     }
@@ -43,23 +41,4 @@ public class Dungeon {
         return allLocationNodes[id];
     }
 
-    //TODO: THE DUNGEON SHOULDN'T CHECK FOR GAME EVENTS!!!!!!!!
-    public boolean CheckForGameEvents(List<Integer> visited_events){
-
-        GameEvent e = currentLocationNode.getGameEvent();
-        if(e == null){
-            return false;
-        }
-        if(e.getEvent() != Event.NONE)
-        {
-            if(visited_events.contains(e.getId()) || e.isComplete()){
-                return e.isRepeatable();
-            }
-            else {
-                return true;
-            }
-        }
-
-        return false;
-    }
 }

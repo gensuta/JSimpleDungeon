@@ -2,12 +2,16 @@ import java.util.*;
 
 public class DialogueHandler {
     DialogueNode currentNode;
-    Map<Integer,DialogueNode> dialogueNodeMap = new HashMap<Integer,DialogueNode>();
+    Map<String,DialogueNode> dialogueNodeMap = new HashMap<String,DialogueNode>();
     InputHandler inputHandler = new InputHandler();
     boolean runningDialogue;
 
     public void StartCurrentNode()
     {
+        if(currentNode == null)
+        {
+            return;
+        }
         runningDialogue = true;
         while(runningDialogue)
         {
@@ -26,7 +30,7 @@ public class DialogueHandler {
 
     }
 
-    public void SetCurrentNode(int node_id){
+    public void SetCurrentNode(String node_id){
         currentNode = dialogueNodeMap.get(node_id);
     }
 
@@ -48,7 +52,7 @@ public class DialogueHandler {
 
     public void CreateDialogueNodes(){
         JSONParser jsonParser = new JSONParser();
-        dialogueNodeMap = jsonParser.ParseToDialogueMap();
+        dialogueNodeMap = jsonParser.ParseDialogueMap();
         currentNode = dialogueNodeMap.get(1);
     }
 
